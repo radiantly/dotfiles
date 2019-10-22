@@ -9,6 +9,8 @@
 # cd $brainstormr
 #
 
+ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
+
 echo Heya! Small reminder, your hostname is $(hostname).
 
 # Snippet taken from https://gist.github.com/nl5887/a511f172d3fb3cd0e42d
