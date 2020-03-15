@@ -11,10 +11,10 @@
 
 ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 
-echo Heya! Small reminder, your hostname is $(hostname).
+printf "$(hostname) up since $(date -d "$(</proc/uptime awk '{print $1}') seconds ago" "+%A, %b %d %I:%M%p.")\n"
 
 # Snippet taken from https://gist.github.com/nl5887/a511f172d3fb3cd0e42d
-transfer() {
+transfer() (
     # check arguments
     if [ $# -eq 0 ];
     then
@@ -22,8 +22,20 @@ transfer() {
         return 1
     fi
 
-    # get temporarily filename, output is written to this file show progress can be showed
-    tmpfile=$( mktemp -t transferXXX )
+    sendFile() {
+    	# get temporarily filename, output is written to this file show progress can be showed
+    	tmpfile=$( mktemp -t transferXXX )
+
+	# -w https://stackoverflow.com/questions/29497038/why-does-a-curl-request-return-a-percent-sign-with-every-request-in-zsh
+    	curl --progress-bar -w '\n' --upload-file $1 "https://transfer.sh/"$2 >> $tmpfile
+
+        # cat output link
+        cat $tmpfile 
+
+        # cleanup
+        rm -f $tmpfile
+    }
+
 
     # upload stdin or file
     file=$1
@@ -40,24 +52,17 @@ transfer() {
 
         if [ -d $file ];
         then
-            # zip directory and transfer
             zipfile=$( mktemp -t transferXXX.zip )
             cd $(dirname $file) && zip -r -q - $(basename $file) >> $zipfile
-            curl --progress-bar --upload-file "$zipfile" "https://transfer.sh/$basefile.zip" >> $tmpfile
+	    sendFile $zipfile "$basefile.zip"
             rm -f $zipfile
         else
-            # transfer file
-            curl --progress-bar --upload-file "$file" "https://transfer.sh/$basefile" >> $tmpfile
+	    sendFile $file $basefile
         fi
     else
-        # transfer pipe
-        curl --progress-bar --upload-file "-" "https://transfer.sh/$file" >> $tmpfile
+	sendFile "-" $file
     fi
+)
 
-    # cat output link
-    cat $tmpfile
-
-    # cleanup
-    rm -f $tmpfile
-}
-
+alias tmux='tmux -u'
+alias ta='tmux attach-session -t' 
