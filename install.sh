@@ -1,7 +1,7 @@
 # Let's update package lists!
 sudo apt update
 
-packages=(zsh curl fonts-firacode git tmux)
+packages=(zsh curl fonts-firacode git tmux rsync)
 for package in $packages; do
 	sudo apt -y install $package
 done
@@ -21,4 +21,4 @@ ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/the
 git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 '
-chsh -s $(which zsh)
+sudo chsh -s $(which zsh) $USER
