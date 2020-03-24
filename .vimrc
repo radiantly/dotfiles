@@ -29,6 +29,9 @@ set expandtab
 set shiftwidth=4
 set cindent
 
+imap <F9> <ESC><F9>
+imap <F10> <ESC><F10>
+
 nmap <F9> :SCCompile<cr>
 nnoremap <F10> :call SingleCompileSplit() \| SCCompileRun<CR>
 function! SingleCompileSplit()
