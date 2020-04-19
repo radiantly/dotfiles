@@ -1,3 +1,4 @@
+" Run vim not vi
 set nocompatible
 
 " This automatically installs the vim-plug plugin manager
@@ -20,15 +21,23 @@ call plug#end()
 
 let g:airline_theme='powerlineish'
 
-inoremap jk <ESC> 
+inoremap jk <ESC>
 
-syntax on
-set number
+" Enable syntax highlighting
+syntax on 
+
+" Make line numbers on the left relative
+set number relativenumber 
+
 set tabstop=8
 set expandtab
 set shiftwidth=4
 set cindent
 
+" Enable mouse
+set  mouse=a
+
+" Run SingleCompile even from insert mode
 imap <F9> <ESC><F9>
 imap <F10> <ESC><F10>
 
