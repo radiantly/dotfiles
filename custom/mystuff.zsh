@@ -125,3 +125,37 @@ gc() {
         return 1
     fi
 }
+
+c() {
+    if [[ "$#" == 0 ]]; then
+        if [[ "$PWD" == "$HOME/Documents/c" ]]; then
+            c "$(ls *.* | fzf --preview 'bat --color=always {}' )"
+        else
+            cd ~/Documents/c
+        fi
+    elif [[ "$1" == "c" ]]; then
+        cd ~/Documents/c
+        code .
+    elif [[ "$1" == "s" ]]; then
+        cd ~/Documents/c
+        subl .
+    elif [[ "$1" == *".c" ]]; then
+        inFile="$1"
+        outFile="${1:0:-2}"
+        shift
+        echo "$inFile" | entr /usr/bin/zsh -c 'gcc "$1" -g -o "$2" -lm && echo "\nRunning $1:" && ./"$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
+    elif [[ "$1" == *".cpp" ]]; then
+        inFile="$1"
+        outFile="${1:0:-4}"
+        shift
+        echo "$inFile" | entr /usr/bin/zsh -c 'g++ "$1" -g -o "$2" && echo "\nRunning $1:" && ./"$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
+    elif [[ "$1" == *".py" ]]; then
+        echo "$1" | entr python3 "$1"
+    fi
+}
+
+getcolorundercursor() {
+    gnome-screenshot -f /tmp/screenie.png
+    eval $(xdotool getmouselocation --shell | head -n2)
+    convert /tmp/screenie.png -depth 8 -alpha off -crop 1x1+$X+$Y txt:- | tee /dev/tty | grep -om1 '#\w\+' | xclip -selection c
+}
