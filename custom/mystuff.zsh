@@ -1,73 +1,29 @@
-# You can put files here to add functionality separated per file, which
-# will be ignored by git.
-# Files on the custom/ directory will be automatically loaded by the init
-# script, in alphabetical order.
+# ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 
-# For example: add yourself some shortcuts to projects you often work on.
-#
-# brainstormr=~/Projects/development/planetargon/brainstormr
-# cd $brainstormr
-#
+# printf "$(hostname) up since $(date -d "$(</proc/uptime awk '{print $1}') seconds ago" "+%A, %b %d %I:%M%p.")\n"
 
-ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
-
-printf "$(hostname) up since $(date -d "$(</proc/uptime awk '{print $1}') seconds ago" "+%A, %b %d %I:%M%p.")\n"
-
-# Snippet taken from https://gist.github.com/nl5887/a511f172d3fb3cd0e42d
 # Enclosing functions in { } vs ( ). The latter runs the function in a subshell (which is not really needed).
 # More info at: https://stackoverflow.com/questions/27801932/bash-functions-enclosing-the-body-in-braces-vs-parentheses
 transfer() {
-    if [[ "$#" == 0 ]]
-    then
-        echo "No arguments specified. Usage:\necho transfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"
-        return 1
-    fi
-
-    sendFile() {
-        # -w https://stackoverflow.com/questions/29497038/why-does-a-curl-request-return-a-percent-sign-with-every-request-in-zsh
-        curl --progress-bar -w '\n' --upload-file "$1" "https://transfer.sh/$2" 
-    }
-
-
-    # upload stdin or file
-    file=$1
-
-    if tty -s;
-    then
-        basefile=$(basename "$file" | sed -e 's/[^a-zA-Z0-9._-]/-/g')
-
-        if [ ! -e $file ];
-        then
-            echo "File $file does not exist."
+    if [[ "$#" == 0 ]]; then
+        if ! tty -s; then
+            curl -F 'file=@-' https://0x0.st
+        else
+            echo "No arguments specified. Usage:\ntransfer /tmp/test.md\ncat /tmp/test.md | transfer test.md"
             return 1
         fi
-
-        if [ -d $file ];
-        then
-            zipfile=$( mktemp -t transferXXX.zip )
-            cd $(dirname $file) && zip -r -q - $(basename $file) >> $zipfile
-        sendFile $zipfile "$basefile.zip"
-            rm -f $zipfile
-        else
-        sendFile $file $basefile
-        fi
+    elif [[ ! -f "$1" ]]; then
+        echo "Cannot find file."
+        return 1
     else
-    sendFile "-" $file
+        curl -F 'file=@'"$1" https://0x0.st
     fi
 }
 
 # A few aliases for tmux ^_^
 alias tmux='tmux -u'
-alias ta='tmux attach-session -t' 
-
-# Makes `ip a` more colorful!
-ip() {
-    if [[ "$@" == "a" ]]; then
-        command ip -c a
-    else
-        command ip "$@"
-    fi
-}
+alias ta='tmux attach-session -t'
+alias tl='tmux list-sessions'
 
 # Let's make git more keyboard-friendly
 alias ga='git add'
@@ -151,6 +107,17 @@ c() {
         echo "$inFile" | entr /usr/bin/zsh -c 'g++ "$1" -g -o "$2" && echo "\nRunning $1:" && ./"$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
     elif [[ "$1" == *".py" ]]; then
         echo "$1" | entr python3 "$1"
+    fi
+}
+
+codechef() {
+    if [[ "$#" == 0 ]]; then
+        return 1
+    elif [[ "$1" == *".cpp" ]]; then
+        inFile="$1"
+        outFile="${1:0:-4}"
+        shift
+        echo "$inFile" | entr /usr/bin/zsh -c 'g++ "$1" -g -o out/"$2" && echo "\nRunning $1:" && echo $(tac "$1" | sed -n -e "s/\*\///" -e "/\/\*/q" -e "p" | tac) | out/"$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
     fi
 }
 
