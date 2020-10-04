@@ -1,3 +1,4 @@
+#!/usr/bin/zsh
 # ZSH_AUTOSUGGEST_STRATEGY=(match_prev_cmd completion)
 
 # printf "$(hostname) up since $(date -d "$(</proc/uptime awk '{print $1}') seconds ago" "+%A, %b %d %I:%M%p.")\n"
@@ -94,30 +95,58 @@ c() {
         code .
     elif [[ "$1" == "s" ]]; then
         cd ~/Documents/c
-        subl .
+        subl3 .
     elif [[ "$1" == *".c" ]]; then
         inFile="$1"
-        outFile="${1:0:-2}"
+        outFile="./out/""${1:0:-2}"
         shift
-        echo "$inFile" | entr /usr/bin/zsh -c 'gcc "$1" -g -o "$2" -lm && echo "\nRunning $1:" && ./"$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
+        echo "$inFile" | entr /usr/bin/zsh -c 'gcc "$1" -g -o "$2" -lm && echo "\nRunning $1:" && "$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
     elif [[ "$1" == *".cpp" ]]; then
         inFile="$1"
-        outFile="${1:0:-4}"
+        outFile="./out/""${1:0:-4}"
         shift
-        echo "$inFile" | entr /usr/bin/zsh -c 'g++ "$1" -g -o "$2" && echo "\nRunning $1:" && ./"$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
+        echo "$inFile" | entr /usr/bin/zsh -c 'g++ "$1" -g -o "$2" && echo "\nRunning $1:" && "$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
     elif [[ "$1" == *".py" ]]; then
         echo "$1" | entr python3 "$1"
     fi
 }
 
-codechef() {
+chef() {
+    chefFolder="$HOME"/Documents/c/codechef
+    # If chef is run without any commands, 
     if [[ "$#" == 0 ]]; then
-        return 1
+        # cd into the chef directory,
+        cd "$chefFolder"
+        # allow the user to choose an existing file, or type in a new file name
+        chefFile=$(ls *.cpp | fzf --print-query --preview 'bat --color=always {}' | tail -n 1)
+        echo "$chefFile"
+        # If the file exists, just open it
+        if [[ -f "$chefFile" ]]; then
+            subl3 -a "$chefFolder" "$chefFile"
+            chef "$chefFile"
+        else
+            # Get the file name without extensions
+            chefFile=$(echo "$chefFile" | cut -f 1 -d '.')
+            chefFile+=".cpp"
+            # Prompt for confirmation - Ctrl C to cancel
+            read -r "?Create $chefFile? [ENTER]"
+            cp template.cpp "$chefFile"
+            subl3 -a "$chefFolder" "$chefFile"
+            chef "$chefFile"
+        fi
     elif [[ "$1" == *".cpp" ]]; then
         inFile="$1"
-        outFile="${1:0:-4}"
-        shift
-        echo "$inFile" | entr /usr/bin/zsh -c 'g++ "$1" -g -o out/"$2" && echo "\nRunning $1:" && echo $(tac "$1" | sed -n -e "s/\*\///" -e "/\/\*/q" -e "p" | tac) | out/"$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
+        outFile="./out/""${1:0:-4}"
+
+        # We start reading the file from the end. We remove */ and start
+        # printing. When /* is encountered, we quit reading the file. Finally,
+        # we reverse the reversed comment.
+        lastComment='tac "$1" | sed -n -e "s/\*\///" -e "/\/\*/q" -e "p" | tac'
+
+        # This might be the longest line in this file .. This command watches
+        # the input cpp file and runs it when it's saved. Apart from that it
+        # also pipes input from the last comment to the built exe
+        echo "$inFile" | entr /usr/bin/zsh -c 'g++ "$1" -g -o "$2" && echo "\nRunning $1:" && echo $('$lastComment') | "$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
     fi
 }
 
