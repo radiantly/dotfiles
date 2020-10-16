@@ -125,12 +125,19 @@ chef() {
             subl3 -a "$chefFolder" "$chefFile"
             chef "$chefFile"
         else
+            # If filename ends with .k, then copy kickstart template instead
+            [[ "$chefFile" == *".k" ]]
+            kickstart=$?
             # Get the file name without extensions
             chefFile=$(echo "$chefFile" | cut -f 1 -d '.')
             chefFile+=".cpp"
             # Prompt for confirmation - Ctrl C to cancel
             read -r "?Create $chefFile? [ENTER]"
-            cp template.cpp "$chefFile"
+            if (( kickstart == 0 )); then
+                cp template.k.cpp "$chefFile"
+            else
+                cp template.cpp "$chefFile"
+            fi
             subl3 -a "$chefFolder" "$chefFile"
             chef "$chefFile"
         fi

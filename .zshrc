@@ -112,5 +112,8 @@ alias forti='sudo openfortivpn -c ~/Documents/appviewX/vpnconfig'
 # Load the usual
 source ~/Documents/gitHub/dotfiles/mystuff.zsh
 
+# Load poetry
+source $HOME/.poetry/env
+
 # Starship
 eval "$(starship init zsh)"
