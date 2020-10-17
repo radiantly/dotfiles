@@ -1,6 +1,8 @@
 #! /bin/sh
 
+# -x eXact
 pgrep -x sxhkd > /dev/null || sxhkd &
+pgrep -x dunst > /dev/null || dunst &
 
 feh --bg-center --randomize ~/.wallpaper/* &
 

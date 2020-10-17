@@ -22,7 +22,7 @@ background = #222
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf
-foreground-alt = #555
+foreground-alt = #777
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
@@ -54,7 +54,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = bspwm 
 modules-center = date
-modules-right = filesystem xbacklight pulseaudio memory cpu wlan eth battery powermenu
+modules-right = filesystem xbacklight pulseaudio mic memory cpu wlan eth battery powermenu
 
 tray-position = right
 tray-padding = 2
@@ -300,6 +300,13 @@ menu-2-0-exec = sudo poweroff
 menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
+[module/mic]
+type = custom/script
+interval = 1
+format = MIC <label>
+exec = sh ~/.config/polybar/mic.sh 
+
+
 [settings]
 screenchange-reload = true
 ;compositing-background = xor
@@ -309,7 +316,7 @@ screenchange-reload = true
 ;pseudo-transparency = false
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+margin-top = 0
+margin-bottom = 0
 
 ; vim:ft=dosini

@@ -1,5 +1,5 @@
 # Print a greeting message when shell is started
-echo "Heya $USER! $HOST is running $(uname -srm) $(lsb_release -rcs)\nUp since $(date -d "$(</proc/uptime awk '{print $1}') seconds ago" "+%A, %b %d %I:%M%p")"
+echo "Heya! $HOST is running $(uname -srm) $(lsb_release -rcs)\nUp since $(date -d "$(</proc/uptime awk '{print $1}') seconds ago" "+%A, %b %d %I:%M%p")"
 
 # Options section
 setopt correct                                                  # Auto correct mistakes
