@@ -286,9 +286,11 @@ label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
 
 menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
+menu-0-0-exec = systemctl reboot
 menu-0-1 = power off
-menu-0-1-exec = menu-open-2
+menu-0-1-exec = systemctl poweroff
+menu-0-2 = lock
+menu-0-2-exec = systemctl suspend
 
 menu-1-0 = cancel
 menu-1-0-exec = menu-open-0

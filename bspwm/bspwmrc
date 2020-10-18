@@ -4,7 +4,19 @@
 pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x dunst > /dev/null || dunst &
 
+# Set screensaver time (seconds) - this activates xss-lock
+xset s 180
+export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
+pgrep -x xss-lock > /dev/null || xss-lock xsecurelock &
+
 feh --bg-center --randomize ~/.wallpaper/* &
+
+# Touchpad fixes
+xinput set-prop 11 311 1 # Natural scrolling
+xinput set-prop 11 312 1
+
+xinput set-prop 11 331 1 # Touch to click
+xinput set-prop 11 332 1
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 

@@ -40,6 +40,8 @@ XF86MonBrightnessDown
 XF86MonBrightnessUp
         xbacklight -inc 10
         
+super + F9
+        systemctl suspend
 #
 # bspwm hotkeys
 #
