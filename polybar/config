@@ -52,7 +52,7 @@ font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
-modules-left = bspwm 
+modules-left = bspwm windowtitle
 modules-center = date
 modules-right = filesystem xbacklight pulseaudio mic memory cpu wlan eth battery powermenu
 
@@ -105,6 +105,11 @@ label-empty-padding = 4
 
 ; Separator in between workspaces
 ; label-separator = |
+
+[module/windowtitle]
+type = internal/xwindow
+
+format-foreground = #444 
 
 [module/mpd]
 type = internal/mpd
@@ -307,7 +312,9 @@ type = custom/script
 interval = 1
 format = MIC <label>
 exec = sh ~/.config/polybar/mic.sh 
-
+click-left = pactl set-source-mute 1 toggle
+scroll-up = pactl set-source-volume 1 +5%
+scroll-down = pactl set-source-volume 1 -5%
 
 [settings]
 screenchange-reload = true

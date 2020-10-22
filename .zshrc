@@ -30,7 +30,8 @@ export EDITOR=/usr/bin/vim
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
 
 ## Keybindings section
-bindkey -e
+bindkey -v
+bindkey ' ' magic-space                                         # Expand history expansion on space
 bindkey '^[[7~' beginning-of-line                               # Home key
 bindkey '^[[H' beginning-of-line                                # Home key
 if [[ "${terminfo[khome]}" != "" ]]; then
@@ -53,6 +54,7 @@ bindkey '^[Oc' forward-word                                     #
 bindkey '^[Od' backward-word                                    #
 bindkey '^[[1;5D' backward-word                                 #
 bindkey '^[[1;5C' forward-word                                  #
+bindkey '^[[3;5~' kill-word                                     # delete next word with ctrl+delete
 bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
 bindkey '^[[Z' undo                                             # Shift+tab undo last action
 
@@ -114,6 +116,9 @@ source ~/Documents/gitHub/dotfiles/mystuff.zsh
 
 # Load poetry
 source $HOME/.poetry/env
+
+# Load keys
+eval $(keychain --eval --quiet github)
 
 # Starship
 eval "$(starship init zsh)"

@@ -1,5 +1,11 @@
 #! /bin/sh
 
+# Fix for Arduino IDE tiling
+export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Dark mode for calibre
+export CALIBRE_USE_DARK_PALETTE=1
+
 # -x eXact
 pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x dunst > /dev/null || dunst &

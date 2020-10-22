@@ -7,6 +7,9 @@ super + Return
 	kitty
 
 # Screenshot tool
+Print
+        flameshot full -c -p ~/Pictures
+
 super + shift +s
         flameshot gui
 
@@ -25,23 +28,17 @@ super + Escape
 XF86AudioMute
         pactl set-sink-mute 0 toggle
 
-XF86AudioLowerVolume
-        pactl set-sink-volume 0 -5%
-
-XF86AudioRaiseVolume
-        pactl set-sink-volume 0 +5%
+XF86Audio{Lower,Raise}Volume
+        pactl set-sink-volume 0 {-,+}5%
 
 XF86AudioMicMute
         pactl set-source-mute 1 toggle
 
-XF86MonBrightnessDown
-        xbacklight -dec 10
-
-XF86MonBrightnessUp
-        xbacklight -inc 10
+XF86MonBrightness{Down,Up}
+        xbacklight -{dec,inc} 10
         
 super + F9
-        systemctl suspend
+        xset s activate
 #
 # bspwm hotkeys
 #
@@ -50,9 +47,18 @@ super + F9
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
-# close and kill
-super + {_,shift + }w
-	bspc node -{c,k}
+# This monstrosity takes care of either closing the tab if firefox
+# else it closes the window 
+super + w
+        if [[ "$(xtitle $(bspc query -N focused -n))" == *"Mozilla Firefox" ]]; then xdotool key super+w && xdotool key --clearmodifiers Control_L+w; else bspc node -c; fi
+
+# Quit
+super + q
+        bspc node -c
+
+# Kill
+super + shift + w
+	bspc node -k
 
 # alternate between the tiled and monocle layout
 super + m
