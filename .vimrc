@@ -56,3 +56,14 @@ let g:SingleCompile_showquickfixiferror = 1
 let g:SingleCompile_showquickfixifwarning = 1
 let g:SingleCompile_silentcompileifshowquickfix = 1
 let g:SingleCompile_usetee=0
+
+" To set the right cursors in vim
+" Taken from https://stackoverflow.com/a/42118416/5302813
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
+
+" Optionally reset the cursor on start:
+augroup cursorSet
+au!
+autocmd VimEnter * silent !echo -ne "\e[2 q"
+augroup END

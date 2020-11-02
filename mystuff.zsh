@@ -112,7 +112,7 @@ c() {
 }
 
 chef() {
-    chefFolder="$HOME"/Documents/c/codechef
+    chefFolder="$HOME"/Documents/c/chef
     # If chef is run without any commands, 
     if [[ "$#" == 0 ]]; then
         # cd into the chef directory,

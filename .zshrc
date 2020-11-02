@@ -1,5 +1,8 @@
-# Print a greeting message when shell is started
-echo "Heya! $HOST is running $(uname -srm) $(lsb_release -rcs)\nUp since $(date -d "$(</proc/uptime awk '{print $1}') seconds ago" "+%A, %b %d %I:%M%p")"
+# Load keys
+eval $(keychain --eval --quiet github)
+
+# Starship
+eval "$(starship init zsh)"
 
 # Options section
 setopt correct                                                  # Auto correct mistakes
@@ -117,8 +120,15 @@ source ~/Documents/gitHub/dotfiles/mystuff.zsh
 # Load poetry
 source $HOME/.poetry/env
 
-# Load keys
-eval $(keychain --eval --quiet github)
-
-# Starship
-eval "$(starship init zsh)"
+# Starship change cursor fix by @Gautham on discord
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]]; then
+    echo -ne '\e[1 q'
+  else
+    echo -ne '\e[5 q'
+  fi
+  ## Start Starship Section
+  starship_render
+  zle reset-prompt;
+}
+zle -N zle-keymap-select

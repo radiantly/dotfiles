@@ -7,15 +7,20 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 export CALIBRE_USE_DARK_PALETTE=1
 
 # -x eXact
+pgrep -x picom > /dev/null || picom &
 pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x dunst > /dev/null || dunst &
 
 # Set screensaver time (seconds) - this activates xss-lock
 xset s 180
 export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
+export XSECURELOCK_NO_COMPOSITE=1
 pgrep -x xss-lock > /dev/null || xss-lock xsecurelock &
 
-feh --bg-center --randomize ~/.wallpaper/* &
+feh --bg-fill --randomize ~/.wallpaper/* &
+
+# Set default cursor
+xsetroot -cursor_name left_ptr
 
 # Touchpad fixes
 xinput set-prop 11 311 1 # Natural scrolling
@@ -24,7 +29,7 @@ xinput set-prop 11 312 1
 xinput set-prop 11 331 1 # Touch to click
 xinput set-prop 11 332 1
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor -d I II III IV V VI VII VIII IX 
 
 bspc config border_width         2
 bspc config window_gap          12
@@ -34,6 +39,7 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 bspc config focus_follows_pointer true
 
+bspc rule -a scratchterm sticky=on state=floating hidden=on locked=on rectangle=1920x432+0+648
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating

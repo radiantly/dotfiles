@@ -13,11 +13,11 @@ Print
 super + shift +s
         flameshot gui
 
-# program launcher
-super + z
-        rofi -combi-modi drun,run -show combi -modi combi
+alt + Tab
+        rofi -show window
 
-super + @space
+# program launcher
+~Alt_R
         rofi -combi-modi drun,run -show combi -modi combi
 
 # make sxhkd reload its configuration files:
@@ -47,10 +47,13 @@ super + F9
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
-# This monstrosity takes care of either closing the tab if firefox
+super + space
+        zsh ~/.config/sxhkd/scratchtermtoggle.zsh
+
+# This takes care of either closing the tab if firefox
 # else it closes the window 
 super + w
-        if [[ "$(xtitle $(bspc query -N focused -n))" == *"Mozilla Firefox" ]]; then xdotool key super+w && xdotool key --clearmodifiers Control_L+w; else bspc node -c; fi
+        zsh ~/.config/sxhkd/superW.zsh
 
 # Quit
 super + q
