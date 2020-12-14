@@ -1,5 +1,4 @@
-" Run vim not vi
-set nocompatible
+set nocompatible   " run vim not vi
 
 " This automatically installs the vim-plug plugin manager
 " Snippet was taken from the vim-plug wiki
@@ -23,19 +22,21 @@ let g:airline_theme='powerlineish'
 
 inoremap jk <ESC>
 
-" Enable syntax highlighting
-syntax on 
+syntax on          " enable syntax highlighting
 
-" Make line numbers on the left relative
-set number relativenumber 
+set hlsearch       " highlight all search results
+set ignorecase     " do case insensitive search 
+set incsearch      " show incremental search results as you type
+set smartcase      " case-sensitive search if query contains uppercase
+set number         " display line number
+set relativenumber " relative line numbers
 
-set tabstop=8
-set expandtab
-set shiftwidth=4
-set cindent
+set tabstop=4      " show existing \t as 4 spaces
+set expandtab      " on pressing tab convert it to spaces
+set shiftwidth=4   " indents have a 4 spaces width
+set cindent        " indentation for c files
 
-" Enable mouse
-set  mouse=a
+set mouse=a        " enable mouse
 
 " Run SingleCompile even from insert mode
 imap <F9> <ESC><F9>
@@ -57,12 +58,12 @@ let g:SingleCompile_showquickfixifwarning = 1
 let g:SingleCompile_silentcompileifshowquickfix = 1
 let g:SingleCompile_usetee=0
 
-" To set the right cursors in vim
+" To set block cursor for normal mode and beam for insert
 " Taken from https://stackoverflow.com/a/42118416/5302813
 let &t_SI = "\e[6 q"
 let &t_EI = "\e[2 q"
 
-" Optionally reset the cursor on start:
+" Set correct cursor when starting vim
 augroup cursorSet
 au!
 autocmd VimEnter * silent !echo -ne "\e[2 q"
