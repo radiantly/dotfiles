@@ -306,12 +306,12 @@ menu-2-1-exec = menu-open-0
 
 [module/mic]
 type = custom/script
-interval = 1
+tail = true
 format = MIC <label>
-exec = sh ~/.config/polybar/mic.sh 
-click-left = pactl set-source-mute 1 toggle
-scroll-up = pactl set-source-volume 1 +5%
-scroll-down = pactl set-source-volume 1 -5%
+exec = ~/.config/polybar/mic.sh
+click-left = ~/.config/polybar/mic.sh --toggle &
+scroll-up = ~/.config/polybar/mic.sh --increase &
+scroll-down = ~/.config/polybar/mic.sh --decrease &
 
 [settings]
 screenchange-reload = true

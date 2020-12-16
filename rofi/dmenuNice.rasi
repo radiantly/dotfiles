@@ -7,7 +7,7 @@
     background-color:     #222;
     border-color:          White;
     text-color:           White;
-    font:            "Fira Code Retina 11";
+    font:            "Fira Code Retina 10";
 }
 
 window {

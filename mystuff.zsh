@@ -123,7 +123,7 @@ chef() {
         # cd into the chef directory,
         cd "$chefFolder"
         # allow the user to choose an existing file, or type in a new file name
-        chefFile=$(ls code *.cpp | fzf --print-query --preview 'bat --color=always {}' | tail -n 1)
+        chefFile=$(ls code *.cpp Completed/*.cpp | fzf --print-query --preview 'bat --color=always {}' | tail -n 1)
         if [[ "$chefFile" == "code" ]]; then
             code "$chefFolder"
             return 0
@@ -203,4 +203,4 @@ aoc() {
     fi
 }
 
-alias p=python
+alias p=pypy3

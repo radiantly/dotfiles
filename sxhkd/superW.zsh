@@ -1,7 +1,7 @@
 #!/usr/bin/zsh
 
 wintitle=$(xtitle $(bspc query -N focused -n))
-if [[ "$wintitle" =~ '.*(Mozilla Firefox|Chromium)' ]]; then
+if [[ "$wintitle" =~ '.*(Firefox Developer Edition|Chromium)' ]]; then
     # Close firefox/chromium tab
     xdotool keyup super+w 
     xdotool key --clearmodifiers Control_L+w 
