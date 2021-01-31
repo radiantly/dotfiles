@@ -13,8 +13,8 @@ Print
 super + shift +s
         flameshot gui
 
-alt + Tab
-        bspc node -f next.local.!hidden.leaf
+alt + {_,shift +}Tab
+        bspc node -f {next,prev}.local.!hidden.leaf
 
 # program launcher
 ~Alt_R
