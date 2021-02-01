@@ -88,7 +88,7 @@ export LESS=-r
 
 ## Plugins section: Enable fish style features
 # z.lua
-source /usr/share/z.lua/z.lua.plugin.zsh
+eval "$(lua /usr/share/z.lua/z.lua --init zsh once)"
 
 # Use zsh autosuggestions
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh

@@ -6,6 +6,14 @@
 super + Return
 	kitty
 
+# FireFox
+super + f
+    firefox-developer-edition
+
+# Discord
+super + d
+    discord &
+
 # Screenshot tool
 Print
         flameshot full -c -p ~/Pictures
