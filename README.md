@@ -4,4 +4,6 @@ I'm always jumping through servers and re-installations and I've found that I ju
 
 Edit: Haha! As I'm trying to commit, I realize my git user and email isn't configured. This is exactly what I hope this will solve.
 
-I currently run Manjaro Linux with the bspwm window manager.
+I currently run Manjaro Linux with the bspwm window manager. Here's a preview of how my desktop looks like:
+
+![Desktop preview](./demo/desktop.png)
