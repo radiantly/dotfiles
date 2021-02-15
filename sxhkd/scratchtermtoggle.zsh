@@ -1,9 +1,7 @@
 #!/usr/bin/zsh
 #set -xv
-id=$(xdotool search --class scratchterm)
-
-if [[ "$id" == "" ]]; then
-    kitty --class scratchterm --title scratchterm &
-    sleep 0.5 && id=$(xdotool search --class scratchterm)
+if ! xdotool search --class scratchterm; then
+    kitty --class scratchterm --title scratchterm -c ~/.config/kitty/kitty.conf -c ~/.config/kitty/almostopaque.conf &
+    sleep 0.5
 fi
-bspc node "$id" --flag hidden -f
+xdotool search --class scratchterm | xargs -i bspc node {} --flag hidden -f
