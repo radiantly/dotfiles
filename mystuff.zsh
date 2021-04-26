@@ -117,60 +117,9 @@ c() {
 }
 
 chef() {
-    chefFolder="$HOME"/Documents/c/chef
-    # If chef is run without any commands, 
-    if [[ "$#" == 0 ]]; then
-        # cd into the chef directory,
-        cd "$chefFolder"
-        # allow the user to choose an existing file, or type in a new file name
-        chefFile=$(ls code *.cpp Completed/*.cpp | fzf --print-query --preview 'bat --color=always {}' | tail -n 1)
-        if [[ "$chefFile" == "code" ]]; then
-            code "$chefFolder"
-            return 0
-        elif [[ -z "$chefFile" ]]; then
-            return 0
-        # If the file exists, just open it
-        elif [[ -f "$chefFile" ]]; then
-            echo "Opening $chefFile"
-            subl3 -a "$chefFolder" "$chefFile"
-            chef "$chefFile"
-        else
-            # If filename ends with .k, then copy kickstart template instead
-            [[ "$chefFile" == *".k" ]]
-            kickstart=$?
-            # Get the file name without extensions
-            chefFile=$(echo "$chefFile" | cut -f 1 -d '.')
-            chefFile+=".cpp"
-            # Prompt for confirmation - Ctrl C to cancel
-            read -r "?Create $chefFile? [ENTER]"
-            if (( kickstart == 0 )); then
-                cp template.k.cpp "$chefFile"
-            else
-                cp template.cpp "$chefFile"
-            fi
-            subl3 -a "$chefFolder" "$chefFile"
-            chef "$chefFile"
-        fi
-    elif [[ "$1" == *".cpp" ]]; then
-        inFile="$1"
-        outFile="./out/""${1:0:-4}"
-
-        # We start reading the file from the end. We remove */ and start
-        # printing. When /* is encountered, we quit reading the file. Finally,
-        # we reverse the reversed comment.
-        lastComment='tac "$1" | sed -n -e "s/\*\///" -e "/\/\*/q" -e "p" | tac'
-
-        # This might be the longest line in this file .. This command watches
-        # the input cpp file and runs it when it's saved. Apart from that it
-        # also pipes input from the last comment to the built exe
-        echo "$inFile" | entr /usr/bin/zsh -c 'g++ "$1" -g -o "$2" && echo "\nRunning $1:" && echo $('$lastComment') | "$2" "${@:3}"' -- "$inFile" "$outFile" "$@"
-    fi
-}
-
-getcolorundercursor() {
-    gnome-screenshot -f /tmp/screenie.png
-    eval $(xdotool getmouselocation --shell | head -n2)
-    convert /tmp/screenie.png -depth 8 -alpha off -crop 1x1+$X+$Y txt:- | tee /dev/tty | grep -om1 '#\w\+' | xclip -selection c
+    cd ~/Documents/c/chef
+    code .
+    python3 ~/Documents/c/chef/chefCppParse.py
 }
 
 # A helper command for quickly getting started with Advent of Code challenges
@@ -204,3 +153,13 @@ aoc() {
 }
 
 alias p=pypy3
+alias sshk="kitty +kitten ssh"
+alias vim="nvim"
+
+cod() {
+    if [[ "$#" == 0 ]]; then
+        code .
+    else
+        z -I "$1" && code .
+    fi
+}

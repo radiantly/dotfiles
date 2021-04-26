@@ -17,7 +17,8 @@ export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
 export XSECURELOCK_NO_COMPOSITE=1
 pgrep -x xss-lock > /dev/null || xss-lock xsecurelock &
 
-feh --bg-fill --randomize ~/.wallpaper/* &
+# Wallpaper
+feh --bg-fill --randomize ~/.config/wallpapers/* &
 
 # Set default cursor
 xsetroot -cursor_name left_ptr
@@ -28,6 +29,9 @@ xinput set-prop 11 312 1
 
 xinput set-prop 11 331 1 # Touch to click
 xinput set-prop 11 332 1
+
+# Alt-tab script
+python3 ~/.config/bspwm/AltTabber.py &
 
 bspc monitor -d I II III IV V VI VII VIII IX 
 

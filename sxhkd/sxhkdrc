@@ -12,7 +12,11 @@ super + f
 
 # Discord
 super + d
-    discord &
+    exec discord
+
+# Lock screen
+super + l
+    xset s activate
 
 # Screenshot tool
 Print
@@ -20,9 +24,6 @@ Print
 
 super + shift +s
     flameshot gui
-
-alt + {_,shift +}Tab
-    bspc node -f {next,prev}.local.!hidden.leaf || bspc node -f last 
 
 # program launcher
 Alt_R

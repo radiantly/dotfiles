@@ -11,7 +11,6 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
-Plug 'xuhdev/SingleCompile'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -37,26 +36,6 @@ set shiftwidth=4   " indents have a 4 spaces width
 set cindent        " indentation for c files
 
 set mouse=a        " enable mouse
-
-" Run SingleCompile even from insert mode
-imap <F9> <ESC><F9>
-imap <F10> <ESC><F10>
-
-nmap <F9> :SCCompile<cr>
-nnoremap <F10> :call SingleCompileSplit() \| SCCompileRun<CR>
-function! SingleCompileSplit()
-   if winwidth(0) > 160
-      let g:SingleCompile_split = "vsplit"
-      let g:SingleCompile_resultsize = winwidth(0)/2
-   else
-      let g:SingleCompile_split = "split"
-      let g:SingleCompile_resultsize = 15
-   endif
-endfunction
-let g:SingleCompile_showquickfixiferror = 1
-let g:SingleCompile_showquickfixifwarning = 1
-let g:SingleCompile_silentcompileifshowquickfix = 1
-let g:SingleCompile_usetee=0
 
 " To set block cursor for normal mode and beam for insert
 " Taken from https://stackoverflow.com/a/42118416/5302813

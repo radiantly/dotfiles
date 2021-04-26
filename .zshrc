@@ -1,5 +1,6 @@
 # Load keys
-eval $(keychain --eval --quiet github)
+export GPG_TTY=$(tty)
+eval $(keychain --eval --noask --quiet --agents ssh,gpg github 6B113D80D68C409C)
 
 # Starship
 eval "$(starship init zsh)"
@@ -63,6 +64,7 @@ bindkey '^[[Z' undo                                             # Shift+tab undo
 
 ## Alias section 
 alias ...='cd ../..'
+alias ....='cd ../../..'
 alias cp='cp -i'                                                # Confirm before overwriting something
 alias df='df -h'                                                # Human-readable sizes
 alias free='free -h'                                            # Show sizes in MB
@@ -99,6 +101,7 @@ ZSH_HIGHLIGHT_STYLES[command]=fg=white,bold
 
 # Use history substring search
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+export HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
 # bind UP and DOWN arrow keys to history substring search
 zmodload zsh/terminfo
@@ -111,25 +114,20 @@ md() {
     command mkdir -p "$1" && cd "$1"
 }
 
-# Appviewx
-alias forti='sudo openfortivpn -c ~/Documents/appviewX/vpnconfig'
-
 # Load the usual
 source ~/Documents/gitHub/dotfiles/mystuff.zsh
 
-# Load poetry
-source $HOME/.poetry/env
+# Load nvm
+source /usr/share/nvm/init-nvm.sh
 
-# Starship change cursor fix by @Gautham on discord
+# Starship change cursor depending on the mode 
+# Originally by @Gautham on discord
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]]; then
     echo -ne '\e[1 q'
   else
     echo -ne '\e[5 q'
   fi
-  ## Start Starship Section
-  starship_render
-  zle reset-prompt;
 }
 zle -N zle-keymap-select
 
