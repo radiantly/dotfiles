@@ -1,15 +1,20 @@
-# My dotfiles?
+# Dotfiles
 
-I'm always jumping through servers and re-installations and I've found that I just miss those few essential features from zsh and my favorite prompt (Shout out to starship). Couple of google searches later, this repo was born. I considered forking from other popular dotfiles repositories, but considering I'm relatively inexperienced with the shell, I just wanted to start afresh.
+<img class="demo" alt="Grub theme screenshot" title="Grub theme" src="./demo/grub.png" align="right" width="400" />
+<img class="demo" alt="Desktop screenshot" title="My desktop" src="./demo/desktop.png" align="right" width="400" />
 
-Edit: Haha! As I'm trying to commit, I realize my git user and email isn't configured. This is exactly what I hope this will solve.
+Hey there! Find my awesome personal dotfiles in this repo :)
 
-I currently run Manjaro Linux with the bspwm window manager. Here's a preview of how my desktop looks like:
 
-![Desktop preview](./demo/desktop.png)
++ **OS**: [Arch Linux](https://archlinux.org/)
++ **WM**: [bspwm](https://github.com/baskerville/bspwm)
++ **Shell**: [Zsh](https://wiki.archlinux.org/index.php/Zsh) + [starship](https://starship.rs/)
++ **Terminal**: [Kitty](https://github.com/kovidgoyal/kitty/)
++ **File Manager**: [Thunar](https://wiki.archlinux.org/index.php/thunar)
++ **X Screen Lock**: [XSecureLock](https://github.com/google/xsecurelock)
 
-#### Grub Theme
+### Credits
 
-![Grub preview](./demo/grub.png)
+Grub theme inspired by [Patato777/dotfiles](https://github.com/Patato777/dotfiles). Grub background by [Valen](https://twitter.com/MrValenberg)[berg](https://valenberg.com/).
 
-Grub theme inspired by [Patato777/dotfiles](https://github.com/Patato777/dotfiles). Background by [Valen](https://twitter.com/MrValenberg)[berg](https://valenberg.com/).
+Don't like the look that much? Have a go at [Chebro's amazing Nord theme](https://github.com/chebro/dotfiles).

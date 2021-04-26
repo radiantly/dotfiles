@@ -9,17 +9,18 @@ terminal-top: "0"
 terminal-width: "100%"
 terminal-height: "100%"
 terminal-border: "0"
+terminal-font: "Droid Sans Mono Regular 14"
 
 # Boot menu
 + boot_menu {
   left = 40%
-  top = 37%
+  top = 42%
   width = 34%
   height = 27%
   item_font = "Alagard Regular 32"
   item_color = "#eedb5c"
   selected_item_color = "#e6d38a"
-  item_spacing = 10
+  item_spacing = 11
   icon_width = 0
   item_icon_space = 0
 }
