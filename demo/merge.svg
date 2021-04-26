@@ -12,8 +12,8 @@
                 }
 			</style>
       <div class="container">
-          <img class="demo" src="./grub.png" />
-          <img class="demo" src="./desktop.png" />
+          <img class="demo" src="https://raw.githubusercontent.com/radiantly/dotfiles/master/demo/grub.png" />
+          <img class="demo" src="https://raw.githubusercontent.com/radiantly/dotfiles/master/demo/desktop.png" />
       </div>
 		</div>
 	</foreignObject>
