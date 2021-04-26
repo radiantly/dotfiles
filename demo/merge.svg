@@ -9,14 +9,14 @@
                 .container {
                     display: flex;
                     flex-direction: column;
-                    gap: 3px;
+                    gap: 2px;
                 }
             </style>
             <div class="container">
-                <a href="https://github.com/radiantly/dotfiles/blob/master/demo/grub.png">
+                <a href="https://cdn.jsdelivr.net/gh/radiantly/dotfiles@master/demo/grub.png">
                     <img class="demo" alt="Grub theme screenshot" title="Grub theme" src="./grub.png" />
                 </a>
-                <a href="https://github.com/radiantly/dotfiles/blob/master/demo/desktop.png">
+                <a href="https://cdn.jsdelivr.net/gh/radiantly/dotfiles@master/demo/desktop.png">
                     <img class="demo" alt="Desktop screenshot" title="My desktop" src="./desktop.png" />
                 </a>
             </div>
