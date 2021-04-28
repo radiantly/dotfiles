@@ -1,21 +1,17 @@
 #! /bin/sh
 
-# Fix for Arduino IDE tiling
-export _JAVA_AWT_WM_NONREPARENTING=1
-
-# Dark mode for calibre
-export CALIBRE_USE_DARK_PALETTE=1
-
 # -x eXact
 pgrep -x picom > /dev/null || picom --experimental-backends &
 pgrep -x sxhkd > /dev/null || sxhkd &
 pgrep -x dunst > /dev/null || dunst &
+pgrep -x xss-lock > /dev/null || xss-lock xsecurelock &
+
+# Polkit agent - so that we can mount drives from the file manager
+# -f full process name - otherwise pgrep only looks at the first 15 chars
+pgrep -f lxqt-policykit-agent > /dev/null || lxqt-policykit-agent &
 
 # Set screensaver time (seconds) - this activates xss-lock
 xset s 180
-export XSECURELOCK_DISCARD_FIRST_KEYPRESS=0
-export XSECURELOCK_NO_COMPOSITE=1
-pgrep -x xss-lock > /dev/null || xss-lock xsecurelock &
 
 # Wallpaper
 feh --bg-fill --randomize ~/.config/wallpapers/* &
@@ -29,6 +25,9 @@ xinput set-prop 11 312 1
 
 xinput set-prop 11 331 1 # Touch to click
 xinput set-prop 11 332 1
+
+# So that fonts look good on Java/Wine applications
+xsettingsd &
 
 # Alt-tab script
 python3 ~/.config/bspwm/AltTabber.py &

@@ -130,6 +130,3 @@ function zle-keymap-select {
   fi
 }
 zle -N zle-keymap-select
-
-# Add bin paths
-export path=("$HOME/.cargo/bin" "$HOME/.local/bin" $path)
