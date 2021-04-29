@@ -9,13 +9,13 @@ CWD=$(dirname $SCRIPT)
 # pacman -S bspwm sxhkd zsh rofi neovim kitty dunst feh
 
 for file in .tmux.conf .vimrc .zprofile .zshrc; do
-  [[ -f ~/"$file" ]] && mv ~/"$file" /tmp
+  [[ -e ~/"$file" ]] && mv ~/"$file" /tmp
   ln -s "$CWD/$file" ~/
 done
 
-for dir in bspwm dunst gtk-3.0 kitty nvim picom polybar rofi sxhkd wallpapers xsettingsd; do
-  [[ -d ~/".config/$dir" ]] && mv ~/".config/$dir" /tmp
-  ln -s "$CWD/$dir" ~/.config
+for conf in bspwm dunst gtk-3.0 kitty nvim picom polybar rofi sxhkd wallpapers xsettingsd starship.toml; do
+  [[ -e ~/".config/$conf" ]] && mv ~/".config/$conf" /tmp
+  ln -sf "$CWD/.config/$conf" ~/.config
 done
 
 # # Grub theme
