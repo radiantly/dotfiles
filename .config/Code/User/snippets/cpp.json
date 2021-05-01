@@ -1,0 +1,73 @@
+{
+	"sieve": {
+		"prefix": "comsieve",
+		"body": [
+			"const int maxN = 1;",
+			"",
+			"vi primef(maxN);",
+			"",
+			"#define init_func 1",
+			"void init() {",
+			"\tfor (int i = 2; i < maxN; i++) {",
+			"\t\tif (primef[i]) continue;",
+			"\t\tfor (int j = i; j < maxN; j+=i)",
+			"\t\t\tprimef[j]++;",
+			"\t}",
+			"}"
+		],
+		"description": "Prime sieve"
+	},
+	"init": {
+		"prefix": "cominit",
+		"body": [
+			"#define init_func 1",
+			"void init() {",
+			"\t$0",
+			"}"
+		],
+		"description": "Init function"
+	},
+	"mpow": {
+		"prefix": "compow",
+		"body": [
+			"int mpow(int a, int b) {",
+			"\tint x = 1;",
+			"\twhile (b) {",
+			"\t\tif (b & 1) x *= a;",
+			"\t\ta *= a;",
+			"\t\tb >>= 1;",
+			"\t}",
+			"\treturn x;",
+			"}"
+		],
+		"description": "Power function"
+	},
+	"mpowmod": {
+		"prefix": "compowmod",
+		"body": [
+			"int mpow(int a, int b) {",
+			"\tint x = 1;",
+			"\twhile (b) {",
+			"\t\tif (b & 1) x = (x * a) % MOD;",
+			"\t\ta = (a * a) % MOD;",
+			"\t\tb >>= 1;",
+			"\t}",
+			"\treturn x;",
+			"}"
+		],
+		"description": "Power function with modulo"
+	}
+	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and 
+	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. Placeholders with the 
+	// same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+}
