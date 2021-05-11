@@ -17,9 +17,19 @@
     "editor.defaultFormatter": "ms-python.python",
     "editor.tabSize": 4
   },
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+    "editor.tabSize": 4
+  },
   "[cpp]": {
     "editor.defaultFormatter": "ms-vscode.cpptools",
     "editor.tabSize": 4
   },
-  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}"
+  "C_Cpp.clang_format_fallbackStyle": "{ BasedOnStyle: Google, IndentWidth: 4, ColumnLimit: 0}",
+  "codeswing.tempDirectory": "/home/j/Documents/gitHub/swings",
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust",
+    "editor.tabSize": 4
+  },
+  "gitlens.hovers.currentLine.over": "line"
 }

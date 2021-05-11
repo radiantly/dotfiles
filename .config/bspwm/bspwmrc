@@ -3,6 +3,7 @@
 # -x eXact
 pgrep -x picom > /dev/null || picom --experimental-backends &
 pgrep -x sxhkd > /dev/null || sxhkd &
+pgrep -x conky > /dev/null || conky --daemonize --config ~/.config/conky/conky.lua
 pgrep -x xss-lock > /dev/null || xss-lock xsecurelock &
 
 # Polkit agent - so that we can mount drives from the file manager
