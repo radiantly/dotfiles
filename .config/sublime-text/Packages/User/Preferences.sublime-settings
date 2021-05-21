@@ -1,0 +1,9 @@
+{
+  "theme": "Adaptive.sublime-theme",
+  "color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+  "font_face": "Fira Code Medium",
+  "font_size": 14,
+  "hot_exit": false,
+  "remember_open_files": false,
+  "translate_tabs_to_spaces": true
+}

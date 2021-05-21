@@ -15,8 +15,12 @@ done
 
 for conf in bspwm conky dunst fontconfig gtk-3.0 kitty nvim picom polybar rofi sxhkd wallpapers xsettingsd starship.toml; do
   [[ -e ~/".config/$conf" ]] && mv ~/".config/$conf" /tmp
-  ln -sf "$CWD/.config/$conf" ~/.config
+  ln -s "$CWD/.config/$conf" ~/.config
 done
+
+# Sublime text settings
+[[ -d ~/.config/sublime-text/Packages/User ]] \
+&& ln -sf "$CWD/.config/sublime-text/Packages/User/Preferences.sublime-settings" ~/.config/sublime-text/Packages/User/Preferences.sublime-settings
 
 # # Grub theme
 # sudo mkdir -p /boot/grub/themes
