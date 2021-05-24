@@ -21,21 +21,6 @@ transfer() {
     fi
 }
 
-# A few aliases for tmux ^_^
-alias tmux='tmux -u'
-alias ta='tmux attach-session -t'
-alias tl='tmux list-sessions'
-
-# Let's make git more keyboard-friendly
-alias ga='git add'
-alias gst='git status'
-alias gss='git status -s'
-alias gp='git push'
-alias gcl='git clone'
-alias gcm='git checkout master'
-alias gl='git log'
-alias glo='git log --oneline'
-
 # gc: Intellegent support for git commit/checkout
 # Supported commit flags: -a, -m. Checkout: -b
 gc() {
@@ -154,11 +139,13 @@ aoc() {
 
 alias p=pypy3
 alias sshk="kitty +kitten ssh"
-alias vim="nvim"
+alias zf="z -I"
 
 cod() {
     if [[ "$#" == 0 ]]; then
         code .
+    elif [[ -d "$1" ]]; then
+        code "$1"
     else
         z -I "$1" && code .
     fi

@@ -1,3 +1,5 @@
+" I use Neovim now, this config is obselete
+
 set nocompatible   " run vim not vi
 
 " This automatically installs the vim-plug plugin manager

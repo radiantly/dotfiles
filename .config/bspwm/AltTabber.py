@@ -28,10 +28,12 @@ def lookup_keysym(keysym):
 
 Tabbed = False
 Shifted = set()
+Supered = False
+Changed = False
 
 
 def record_callback(reply):
-    global Tabbed
+    global Tabbed, Supered, Changed
     if reply.category != record.FromServer:
         return
     if reply.client_swapped:
@@ -43,9 +45,7 @@ def record_callback(reply):
 
     data = reply.data
     while len(data):
-        event, data = rq.EventField(None).parse_binary_value(
-            data, record_dpy.display, None, None
-        )
+        event, data = rq.EventField(None).parse_binary_value(data, record_dpy.display, None, None)
 
         if event.type not in [X.KeyPress, X.KeyRelease]:
             continue
@@ -57,6 +57,7 @@ def record_callback(reply):
         # 64 Alt_L
         # 50 Shift_L
         # 62 Shift_R
+        # 133 Super_L
 
         # keysym = local_dpy.keycode_to_keysym(event.detail, 0)
         # # print (event)
@@ -72,18 +73,33 @@ def record_callback(reply):
         #     return
 
         if event.type == X.KeyPress:
+            if event.detail == 133:
+                Supered = True
             if event.detail == 64:
                 Tabbed = True
             if event.detail in [50, 62]:
                 Shifted.add(event.detail)
-            if Tabbed and event.detail == 23:
+
+            if event.detail == 23 and (Tabbed or Supered):
                 subprocess.run(["bspc", "wm", "-h", "off"])
-                subprocess.run(["bspc", "node", "newer" if Shifted else "older", "-f"])
+                if Tabbed:
+                    subprocess.run(["bspc", "node", "newer" if Shifted else "older", "-f"])
+                elif Supered:
+                    subprocess.run(
+                        ["bspc", "node", ("newer" if Shifted else "older") + ".local", "-f"]
+                    )
+                Changed = True
                 subprocess.run(["bspc", "wm", "-h", "on"])
+
         else:
-            if event.detail == 64:
-                subprocess.run(["bspc", "node", "-f"])
-                Tabbed = False
+            if event.detail in [64, 133]:
+                if Changed:
+                    subprocess.run(["bspc", "node", "-f"])
+                    Changed = False
+                if event.detail == 64:
+                    Tabbed = False
+                else:
+                    Supered = False
             if event.detail in Shifted:
                 Shifted.remove(event.detail)
 

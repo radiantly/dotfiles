@@ -1,7 +1,3 @@
-# Load keys
-export GPG_TTY=$(tty)
-eval $(keychain --eval --noask --quiet --agents ssh,gpg github 6B113D80D68C409C)
-
 # Starship
 eval "$(starship init zsh)"
 
@@ -30,7 +26,6 @@ zstyle ':completion:*' cache-path ~/.zsh/cache
 HISTFILE=~/.zhistory
 HISTSIZE=15000
 SAVEHIST=10000
-export EDITOR=/usr/bin/nvim
 WORDCHARS=${WORDCHARS//\/[&.;]}                                 # Don't consider certain characters part of the word
 
 ## Keybindings section
@@ -62,35 +57,14 @@ bindkey '^[[3;5~' kill-word                                     # delete next wo
 bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
 bindkey '^[[Z' undo                                             # Shift+tab undo last action
 
-## Alias section 
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias cp='cp -i'                                                # Confirm before overwriting something
-alias df='df -h'                                                # Human-readable sizes
-alias free='free -h'                                            # Show sizes in MB
-alias ls='ls --color=tty'                                       # Show colors on ls
-alias ip='ip -c'                                                # Show colors on ip
-alias grep='grep --color=auto'                                  # Show colors on grep
-
 # Theming section  
 autoload -U compinit colors zcalc
 compinit -d
 colors
 
-# Color man pages
-export LESS_TERMCAP_mb=$'\E[01;32m'
-export LESS_TERMCAP_md=$'\E[01;32m'
-export LESS_TERMCAP_me=$'\E[0m'
-export LESS_TERMCAP_se=$'\E[0m'
-export LESS_TERMCAP_so=$'\E[01;47;34m'
-export LESS_TERMCAP_ue=$'\E[0m'
-export LESS_TERMCAP_us=$'\E[01;36m'
-export LESS=-r
-
-
 ## Plugins section: Enable fish style features
 # z.lua
-eval "$(lua /usr/share/z.lua/z.lua --init zsh once)"
+eval "$(lua /usr/share/z.lua/z.lua --init zsh enhanced fzf once)"
 
 # Use zsh autosuggestions
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
@@ -110,23 +84,16 @@ bindkey "$terminfo[kcud1]" history-substring-search-down
 bindkey '^[[A' history-substring-search-up			
 bindkey '^[[B' history-substring-search-down
 
-md() {
-    command mkdir -p "$1" && cd "$1"
-}
-
 # Load the usual
+source ~/Documents/gitHub/dotfiles/common.sh
 source ~/Documents/gitHub/dotfiles/mystuff.zsh
 
 # Load nvm
 source /usr/share/nvm/init-nvm.sh
 
-# Starship change cursor depending on the mode 
-# Originally by @Gautham on discord
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]]; then
-    echo -ne '\e[1 q'
-  else
-    echo -ne '\e[5 q'
-  fi
-}
-zle -N zle-keymap-select
+# Completion for kitty
+kitty + complete setup zsh | source /dev/stdin
+
+# Load keys
+export GPG_TTY=$(tty)
+eval $(keychain --eval --noask --quiet --agents ssh,gpg github 6B113D80D68C409C)
