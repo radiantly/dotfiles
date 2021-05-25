@@ -1,8 +1,6 @@
-# Starship
-eval "$(starship init zsh)"
+# zmodload zsh/zprof
 
 # Options section
-setopt correct                                                  # Auto correct mistakes
 setopt extendedglob                                             # Extended globbing. Allows using regular expressions with *
 setopt nocaseglob                                               # Case insensitive globbing
 setopt rcexpandparam                                            # Array expension with parameters
@@ -33,14 +31,8 @@ bindkey -v
 bindkey ' ' magic-space                                         # Expand history expansion on space
 bindkey '^[[7~' beginning-of-line                               # Home key
 bindkey '^[[H' beginning-of-line                                # Home key
-if [[ "${terminfo[khome]}" != "" ]]; then
-  bindkey "${terminfo[khome]}" beginning-of-line                # [Home] - Go to beginning of line
-fi
 bindkey '^[[8~' end-of-line                                     # End key
 bindkey '^[[F' end-of-line                                      # End key
-if [[ "${terminfo[kend]}" != "" ]]; then
-  bindkey "${terminfo[kend]}" end-of-line                       # [End] - Go to end of line
-fi
 bindkey '^[[2~' overwrite-mode                                  # Insert key
 bindkey '^[[3~' delete-char                                     # Delete key
 bindkey '^[[C'  forward-char                                    # Right key
@@ -57,10 +49,8 @@ bindkey '^[[3;5~' kill-word                                     # delete next wo
 bindkey '^H' backward-kill-word                                 # delete previous word with ctrl+backspace
 bindkey '^[[Z' undo                                             # Shift+tab undo last action
 
-# Theming section  
-autoload -U compinit colors zcalc
-compinit -d
-colors
+autoload -Uz compinit                                           # compinit can be found in $fpath
+compinit                                                        # Enable zsh completions
 
 ## Plugins section: Enable fish style features
 # z.lua
@@ -77,10 +67,7 @@ ZSH_HIGHLIGHT_STYLES[command]=fg=white,bold
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 export HISTORY_SUBSTRING_SEARCH_FUZZY=1
 
-# bind UP and DOWN arrow keys to history substring search
-zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+# Bind UP and DOWN arrow keys to history substring search
 bindkey '^[[A' history-substring-search-up			
 bindkey '^[[B' history-substring-search-down
 
@@ -88,8 +75,12 @@ bindkey '^[[B' history-substring-search-down
 source ~/Documents/gitHub/dotfiles/common.sh
 source ~/Documents/gitHub/dotfiles/mystuff.zsh
 
-# Load nvm
-source /usr/share/nvm/init-nvm.sh
+# We don't load nvm right away because it takes up 95% of zsh's startup time
+nvm() {
+  unfunction nvm
+  source /usr/share/nvm/init-nvm.sh
+  nvm "$@"
+}
 
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin
@@ -97,3 +88,8 @@ kitty + complete setup zsh | source /dev/stdin
 # Load keys
 export GPG_TTY=$(tty)
 eval $(keychain --eval --noask --quiet --agents ssh,gpg github 6B113D80D68C409C)
+
+# Starship
+eval "$(starship init zsh)"
+
+# zprof

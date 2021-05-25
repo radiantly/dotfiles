@@ -24,13 +24,15 @@ sudo apt install -yy git tmux neovim wget curl
 git clone https://github.com/radiantly/dotfiles.git /tmp/dotfiles
 
 # Copy configs
-cp -r /tmp/dotfiles/.config/nvim ~/.config/nvim/
+mkdir -p ~/.config
+cp -r /tmp/dotfiles/.config/nvim ~/.config/
 cp /tmp/dotfiles/common.sh ~/
+rm -rf /tmp/dotfiles
 curl -fSsL https://github.com/rupa/z/raw/master/z.sh -o ~/z.sh
 
 SOURCE_CMDS=$(cat << EOF
-source ~/z.sh
-source ~/common.sh
+type z > /dev/null 2>&1 || source ~/z.sh
+type md > /dev/null 2>&1 || source ~/common.sh
 EOF
 )
 

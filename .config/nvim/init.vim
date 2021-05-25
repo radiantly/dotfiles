@@ -3,7 +3,7 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-set clipboard+=unnamedplus  " use system clipboard
+set clipboard+=unnamedplus  " use system clipboard for yank, etc
 
 set tabstop=4               " show existing \t as 4 spaces
 set shiftwidth=4            " indents have a 4 spaces width

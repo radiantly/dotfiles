@@ -38,6 +38,7 @@ export LESS=-r
 
 # Keyboard bindings for bash
 if [[ ! -z "$BASH" ]]; then
+    shopt -s autocd                                      # cd into directories without needing to type cd
     bind '"\e[3;5~":kill-word'                           # delete next word with ctrl+delete
     bind '"\C-h":backward-kill-word'                     # delete previous word with ctrl+backspace
 fi
@@ -46,4 +47,3 @@ fi
 md() {
     command mkdir -p "$1" && cd "$1"
 }
-
