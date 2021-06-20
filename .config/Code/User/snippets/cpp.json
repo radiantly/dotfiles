@@ -56,6 +56,47 @@
 			"}"
 		],
 		"description": "Power function with modulo"
+	},
+	"fenwick": {
+		"prefix": "comfenwick",
+		"body": [
+			"// 0-indexed fenwick tree",
+			"class Fenwick {",
+			"   public:",
+			"\tFenwick(int n) : N(n), Ar(n) {}",
+			"",
+			"\t// inclusive of idx",
+			"\tint sum(int idx) const {",
+			"\t\tidx++;",
+			"\t\tint result = 0;",
+			"\t\twhile (idx) {",
+			"\t\t\tresult += Ar.at(idx - 1);",
+			"\t\t\tidx -= idx & -idx;",
+			"\t\t}",
+			"\t\treturn result;",
+			"\t}",
+			"\tvoid add(int idx, int val) {",
+			"\t\tidx++;",
+			"\t\twhile (idx <= N) {",
+			"\t\t\tAr.at(idx - 1) += val;",
+			"\t\t\tidx += idx & -idx;",
+			"\t\t}",
+			"\t}",
+			"\tvoid set(int idx, int val) {",
+			"\t\tthis->add(idx, val - (*this)[idx]);",
+			"\t}",
+			"\tint operator[](int idx) const {",
+			"\t\tif (idx)",
+			"\t\t\treturn this->sum(idx) - this->sum(idx - 1);",
+			"\t\treturn this->sum(idx);",
+			"\t}",
+			"",
+			"   private:",
+			"\tint N;",
+			"\tvector<int> Ar;",
+			"};"
+		],
+		"description": "Fenwick tree"
 	}
 	// Place your snippets for cpp here. Each snippet is defined under a snippet name and has a prefix, body and 
 	// description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:

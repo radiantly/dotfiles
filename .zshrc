@@ -82,6 +82,13 @@ nvm() {
   nvm "$@"
 }
 
+# Start docker service if it isn't running already
+docker() {
+  unfunction docker
+  systemctl is-active --quiet docker || sudo systemctl start docker
+  docker "$@"
+}
+
 # Completion for kitty
 kitty + complete setup zsh | source /dev/stdin
 
