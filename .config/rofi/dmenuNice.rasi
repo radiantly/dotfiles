@@ -40,6 +40,6 @@ element-icon {
     size: 2ch; 
 }
 
-element selected {
+element selected, element-icon selected, element-text selected {
     background-color: #340a14;
 }
