@@ -5,13 +5,12 @@
 
 Hey there! Find my awesome personal dotfiles in this repo :)
 
-
-+ **OS**: [Arch Linux](https://archlinux.org/)
-+ **WM**: [bspwm](https://github.com/baskerville/bspwm)
-+ **Shell**: [Zsh](https://wiki.archlinux.org/index.php/Zsh) + [starship](https://starship.rs/)
-+ **Terminal**: [Kitty](https://github.com/kovidgoyal/kitty/)
-+ **File Manager**: [Thunar](https://wiki.archlinux.org/index.php/thunar)
-+ **X Screen Lock**: [XSecureLock](https://github.com/google/xsecurelock)
+- **OS**: [Arch Linux](https://archlinux.org/)
+- **WM**: [i3](https://github.com/i3/i3)
+- **Shell**: [Zsh](https://wiki.archlinux.org/index.php/Zsh) + [starship](https://starship.rs/)
+- **Terminal**: [Kitty](https://github.com/kovidgoyal/kitty/)
+- **File Manager**: [Files](https://wiki.archlinux.org/title/GNOME/Files)
+- **X Screen Lock**: [i3lock-color](https://github.com/Raymo111/i3lock-color)
 
 ### Credits
 

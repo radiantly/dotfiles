@@ -19,10 +19,10 @@ case "$1" in
         pamixer --default-source --toggle-mute
         ;;
     --increase)
-        pamixer --default-source --increase 10
+        pamixer --default-source --increase 5
         ;;
     --decrease)
-        pamixer --default-source --decrease 10
+        pamixer --default-source --decrease 5
         ;;
     *)
         listen
